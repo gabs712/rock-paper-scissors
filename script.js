@@ -31,3 +31,34 @@ function playRound(playerSelecction, computerSelection) {
     else if (computerSelection === 'paper') return `You Win! Scissors beats Paper!`;
   }
 }
+
+function getPlayerChoice() {
+  while (true) {
+    const choice = prompt('Rock, Paper or Scissors?').toLowerCase()
+
+    switch (choice) {
+      case 'rock':
+      case 'paper':
+      case 'scissors':
+        return choice;
+
+      default:
+        alert('You must choose one of the three!')
+    }
+  }
+}
+
+function playGame() {
+  let wins = 0;
+  let loses = 0;
+  test(wins)
+  console.log(wins)
+
+}
+//
+function test(wins) {
+  wins += 1;
+  console.log(wins)
+}
+
+playGame()
