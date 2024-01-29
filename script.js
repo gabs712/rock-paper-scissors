@@ -24,7 +24,8 @@ function playGame() {
 // get and restrict player choises to rock paper and scissors
 function getPlayerChoice() {
   while (true) {
-    const choice = prompt('Rock, Paper or Scissors?').toLowerCase()
+    choice = prompt('Rock, Paper or Scissors?');
+    (choice === null) ? null : choice = choice.toLowerCase();
 
     switch (choice) {
       case 'rock':
