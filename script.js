@@ -1,3 +1,43 @@
+function playGame() {
+  let wins = 0;
+  let loses = 0;
+  let ties = 0;
+
+  let roundResult;
+
+  for (let i = 0; i < 5; i++) {
+    roundResult = playRound(getPlayerChoice(), getComputerChoice());
+
+    if (roundResult === true) wins += 1;
+    else if (roundResult === false) loses += 1;
+    else ties += 1;
+  }
+
+  if (wins > loses) console.log('You won the Game!');
+  else if (wins < loses) console.log('You lose the game!');
+  else console.log('The game tied!');
+  
+  const score = `Wins: ${wins}, Loses: ${loses}, Ties: ${ties}`;
+  console.log(score)
+}
+
+// get and restrict player choises to rock paper and scissors
+function getPlayerChoice() {
+  while (true) {
+    const choice = prompt('Rock, Paper or Scissors?').toLowerCase()
+
+    switch (choice) {
+      case 'rock':
+      case 'paper':
+      case 'scissors':
+        return choice;
+
+      default:
+        alert('You must choose one of the three!')
+    }
+  }
+}
+
 // Get a random number for the computer
 function getComputerChoice() {
   const randomNumber = Math.floor(Math.random() * 3);
@@ -14,7 +54,7 @@ function playRound(playerSelecction, computerSelection) {
     const capitalizedComputerSelection = computerSelection[0].toUpperCase() + computerSelection.slice(1);
 
     console.log(`Tie! ${capitalizedPlayerSelecction} ties with ${capitalizedComputerSelection}`);
-    return null
+    return null;
   }
 
   else if (playerSelecction === 'rock') {
@@ -51,19 +91,4 @@ function playRound(playerSelecction, computerSelection) {
   }
 }
 
-// get and restrict player choises to rock paper and scissors
-function getPlayerChoice() {
-  while (true) {
-    const choice = prompt('Rock, Paper or Scissors?').toLowerCase()
-
-    switch (choice) {
-      case 'rock':
-      case 'paper':
-      case 'scissors':
-        return choice;
-
-      default:
-        alert('You must choose one of the three!')
-    }
-  }
-}
+playGame();
