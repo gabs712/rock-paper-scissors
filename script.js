@@ -1,41 +1,38 @@
-function playGame() {
-  let wins = 0;
-  let loses = 0;
-  let ties = 0;
+let wins = 0;
+let loses = 0;
+let ties = 0;
 
-  let roundResult;
+let buttons = document.querySelectorAll('button')
+buttons.forEach(button => {
+  button.addEventListener('click', playGame)
+})
 
-  for (let i = 0; i < 5; i++) {
-    roundResult = playRound(getPlayerChoice(), getComputerChoice());
+function playGame(e) {
+  let playerChoice = e.target.name
+  let computerChoice = getComputerChoice()
 
-    if (roundResult === true) wins += 1;
-    else if (roundResult === false) loses += 1;
-    else ties += 1;
-  }
-
-  if (wins > loses) console.log('You won the Game!');
-  else if (wins < loses) console.log('You lose the game!');
-  else console.log('The game tied!');
+  changeEmoji(playerChoice, computerChoice)
+  let roundResult = playRound(playerChoice, computerChoice);
   
-  const score = `Wins: ${wins}, Loses: ${loses}, Ties: ${ties}`;
-  console.log(score)
-}
+  if (roundResult === true) wins += 1;
+  else if (roundResult === false) loses += 1;
+  else ties += 1;
+  
+  let score = document.querySelector('.score')
+  score.textContent = `Wins: ${wins}, Loses: ${loses}, Ties: ${ties}`
 
-// get and restrict player choises to rock paper and scissors
-function getPlayerChoice() {
-  while (true) {
-    let choice = prompt('Rock, Paper or Scissors?');
-    (choice === null) ? null : choice = choice.toLowerCase();
+  if (wins === 5 && wins > loses || loses === 5 && loses > wins) {
+    let result = document.querySelector('.result')
 
-    switch (choice) {
-      case 'rock':
-      case 'paper':
-      case 'scissors':
-        return choice;
-
-      default:
-        alert('You must choose one of the three!')
+    if (wins > loses) {
+      result.style.color = 'green'
+      result.textContent = 'You Win!'
     }
+    else if (loses > wins) {
+      result.style.color = 'red'
+      result.textContent = 'You lose!'
+    }
+    else result.textContent = 'Tie!'
   }
 }
 
@@ -48,14 +45,32 @@ function getComputerChoice() {
   else if (randomNumber === 2) return 'scissors';
 }
 
+function changeEmoji(playerSelecction, computerSelection) {
+  let playerEmoji = document.querySelector('.playerChoice')
+  let computerEmoji = document.querySelector('.computerChoice')
+  
+  if (playerSelecction === 'rock') {
+    playerEmoji.textContent = '✊'
+  } else if (playerSelecction === 'paper') {
+    playerEmoji.textContent = '✋'
+  } else if (playerSelecction === 'scissors') {
+    playerEmoji.textContent = '✌️'
+  }
+
+  if (computerSelection === 'rock') {
+    computerEmoji.textContent = '✊'
+  } else if (computerSelection === 'paper') {
+    computerEmoji.textContent = '✋'
+  } else if (computerSelection === 'scissors') {
+    computerEmoji.textContent = '✌️'
+  }
+}
+
 // Choose the winner based on rock paper scissors rules
 function playRound(playerSelecction, computerSelection) {
   if (playerSelecction === computerSelection) {
-    const capitalizedPlayerSelecction = playerSelecction[0].toUpperCase() + playerSelecction.slice(1);
-    const capitalizedComputerSelection = computerSelection[0].toUpperCase() + computerSelection.slice(1);
-
-    console.log(`Tie! ${capitalizedPlayerSelecction} ties with ${capitalizedComputerSelection}`);
-    return null;
+    console.log(`Tie! ${playerSelecction} ties with ${computerSelection}`);
+    return null
   }
 
   else if (playerSelecction === 'rock') {
@@ -91,5 +106,3 @@ function playRound(playerSelecction, computerSelection) {
     }
   }
 }
-
-playGame();
