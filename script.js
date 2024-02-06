@@ -1,6 +1,7 @@
 let wins = 0;
 let loses = 0;
 let ties = 0;
+let gameOngoing = true
 
 let buttons = document.querySelectorAll('button')
 buttons.forEach(button => {
@@ -8,31 +9,35 @@ buttons.forEach(button => {
 })
 
 function playGame(e) {
-  let playerChoice = e.target.name
-  let computerChoice = getComputerChoice()
-
-  changeEmoji(playerChoice, computerChoice)
-  let roundResult = playRound(playerChoice, computerChoice);
+  if (gameOngoing) {
+    let playerChoice = e.target.name
+    let computerChoice = getComputerChoice()
   
-  if (roundResult === true) wins += 1;
-  else if (roundResult === false) loses += 1;
-  else ties += 1;
+    changeEmoji(playerChoice, computerChoice)
+    let roundResult = playRound(playerChoice, computerChoice);
+    
+    if (roundResult === true) wins += 1;
+    else if (roundResult === false) loses += 1;
+    else ties += 1;
+    
+    let score = document.querySelector('.score')
+    score.textContent = `Wins: ${wins}, Loses: ${loses}, Ties: ${ties}`
   
-  let score = document.querySelector('.score')
-  score.textContent = `Wins: ${wins}, Loses: ${loses}, Ties: ${ties}`
-
-  if (wins === 5 && wins > loses || loses === 5 && loses > wins) {
-    let result = document.querySelector('.result')
-
-    if (wins > loses) {
-      result.style.color = 'green'
-      result.textContent = 'You Win!'
-    }
-    else if (loses > wins) {
-      result.style.color = 'red'
-      result.textContent = 'You lose!'
-    }
-    else result.textContent = 'Tie!'
+    if (wins === 5 || loses === 5) {
+      let result = document.querySelector('.result')
+  
+      if (wins > loses) {
+        result.style.color = 'green'
+        result.textContent = 'You Win!'
+      }
+      else if (loses > wins) {
+        result.style.color = 'red'
+        result.textContent = 'You lose!'
+      }
+      else result.textContent = 'Tie!'
+  
+      gameOngoing = false
+    } 
   }
 }
 

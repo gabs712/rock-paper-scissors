@@ -51,6 +51,7 @@ body {
   font-size: 20px;
   width: 100px;
   height: 35px;
+  cursor: pointer;
 }
 
 .score {
