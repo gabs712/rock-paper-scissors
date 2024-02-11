@@ -21,7 +21,7 @@ function playGame(e) {
     else ties += 1;
     
     let score = document.querySelector('.score')
-    score.textContent = `Wins: ${wins}, Loses: ${loses}, Ties: ${ties}`
+    score.textContent = `Wins: ${wins} Loses: ${loses} Ties: ${ties}`
   
     if (wins === 5 || loses === 5) {
       let result = document.querySelector('.result')

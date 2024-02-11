@@ -56,4 +56,6 @@ body {
 
 .score {
   margin-bottom: 20px;
+  font-size: 13px;
+  color: white;
 }
